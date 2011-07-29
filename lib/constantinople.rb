@@ -1,6 +1,5 @@
 require "map"
 require "yaml"
-YAML::ENGINE.yamler = 'syck'
 require "deep_merge/core"
 require "constantinople/deep_merge_map"
 require "constantinople/version"
@@ -42,7 +41,7 @@ module Constantinople
 
   def self.caller_config_directories
     possible_caller_config_directories do |dir|
-      yield dir if Dir.exist?(dir)
+      yield dir if File.directory?(dir)
     end
   end
 
@@ -57,11 +56,9 @@ module Constantinople
     results = []
     regex = /^(.*)\:\d+\:in .*$/
     caller.each do |trace|
-      next unless match = regex.match(trace)
-      file = match[1]
-      next unless file && File.exist?(file)
-      dir = File.dirname(file)
-      yield dir unless results.include?(dir)
+      dir = File.dirname(trace)
+      yield dir unless results.include?(dir) || !File.directory?(dir)
+      results << dir
     end
   end
 

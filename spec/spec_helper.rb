@@ -1,4 +1,3 @@
-YAML::ENGINE.yamler = 'syck'
 require 'simplecov'
 SimpleCov.start
 
