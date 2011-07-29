@@ -1,5 +1,6 @@
 require "map"
-require 'yaml'
+require "yaml"
+YAML::ENGINE.yamler = 'syck'
 require "deep_merge/core"
 require "constantinople/deep_merge_map"
 require "constantinople/version"
