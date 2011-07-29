@@ -1,0 +1,9 @@
+b: standard
+c: standard
+animal: unicorn
+development:
+  animal: dolphin
+test:
+  animal: turtle
+production:
+  animal: penguin
