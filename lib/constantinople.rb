@@ -36,7 +36,7 @@ module Constantinople
       environment = ENV[env]
       return environment unless environment.nil? || environment.empty?
     end
-    nil
+    'development'
   end
 
   def self.caller_config_directories

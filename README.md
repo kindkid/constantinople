@@ -32,7 +32,8 @@ Environments
 ============
 If there is a non-empty ENV['RAILS_ENV'], ENV['RACK_ENV'] or ENV['APP_ENV'] the
 first such environment will be used as a key whose values will be merged into
-the level above. So for example, if your database.yml file has
+the level above. If none of those are defined, 'development' is used.
+So for example, if your database.yml file has
 
     username: root
     password:
