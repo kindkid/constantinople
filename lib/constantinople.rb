@@ -11,21 +11,20 @@ module Constantinople
     caller_config_directories do |dir|
       result.deeper_merge!(load_from_directory(dir))
     end
-    env = environment
-    result.each do |key, value|
-      value.deeper_merge!(value[env]) if value.include?(env)
-    end
     result # I'm the map, I'm the map, I'm the map, I'm the map...
   end
 
   private
 
   def self.load_from_directory(dir)
+    env = environment
     result = Map.new
     ['.yml.default', '.yml', '.yml.override'].each do |ext|
       Dir.glob(File.join(dir,"*#{ext}")) do |path|
         filename = File.basename(path,ext)
         result.deeper_merge!(filename => YAML.load_file(path))
+        sub = result[filename]
+        sub.deeper_merge!(sub[env]) if sub.include?(env)
       end
     end
     result
