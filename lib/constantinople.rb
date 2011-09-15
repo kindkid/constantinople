@@ -22,9 +22,14 @@ module Constantinople
     ['.yml.default', '.yml', '.yml.override'].each do |ext|
       Dir.glob(File.join(dir,"*#{ext}")) do |path|
         filename = File.basename(path,ext)
-        result.deeper_merge!(filename => YAML.load_file(path))
-        sub = result[filename]
-        sub.deeper_merge!(sub[env]) if sub.include?(env)
+        sub = YAML.load_file(path)
+        if sub
+          sub = Map.new(sub)
+          sub.deeper_merge!(sub[env]) if sub.include?(env)
+        else
+          sub = {}
+        end
+        result.deeper_merge!(filename => sub)
       end
     end
     result

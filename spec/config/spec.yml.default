@@ -1,3 +1,10 @@
 a: default
 b: default
 c: default
+
+development:
+  monkey: development-banana
+test:
+  monkey: test-banana
+production:
+  monkey: production-banana

@@ -13,6 +13,9 @@ describe Constantinople do
     CONFIG.spec.a.should == 'default'
     CONFIG.spec.b.should == 'standard'
     CONFIG.spec.c.should == 'override'
+    CONFIG.spec.monkey.should == 'banana'
+    CONFIG.spec.test.monkey.should == 'test-banana'
     CONFIG.spec.animal.should == 'turtle' # from test environment
+    CONFIG.empty.should be_empty
   end
 end

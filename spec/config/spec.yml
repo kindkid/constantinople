@@ -1,6 +1,7 @@
 b: standard
 c: standard
 animal: unicorn
+monkey: banana
 development:
   animal: dolphin
 test:
