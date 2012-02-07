@@ -22,7 +22,7 @@ module Constantinople
     ['.yml.default', '.yml', '.yml.override'].each do |ext|
       Dir.glob(File.join(dir,"*#{ext}")) do |path|
         filename = File.basename(path,ext)
-        sub = YAML.load_file(path)
+        sub = load_yaml_or_warn(path)
         if sub
           sub = Map.new(sub)
           sub.deeper_merge!(sub[env]) if sub.include?(env)
@@ -33,6 +33,14 @@ module Constantinople
       end
     end
     result
+  end
+
+  def self.load_yaml_or_warn(path)
+    YAML.load_file(path)
+  rescue Exception => e
+    $stderr.puts "WARNING: Unable to load file: '#{path}'."
+    $stderr.puts " Reason: #{e.message}"
+    nil
   end
 
   def self.environment

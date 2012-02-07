@@ -1,0 +1,4 @@
+<%
+ str_opts = "blah;blah;"
+%>
+opts: <%= str_opts %>
