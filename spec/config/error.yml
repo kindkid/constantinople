@@ -1,0 +1,4 @@
+<%
+error = ".ymlignore my butt."
+%>
+error: <%= error %>

@@ -18,4 +18,16 @@ describe Constantinople do
     CONFIG.spec.animal.should == 'turtle' # from test environment
     CONFIG.empty.should be_empty
   end
+
+  describe "ignore files" do
+    it "should read .ymlignore if it exists" do
+      Constantinople.send(:files_to_ignore, "spec/config").should == ['error.yml']
+    end
+
+    it "should not bother reading error.yml" do
+      lambda {
+        CONFIG.error
+      }.should raise_exception
+    end
+  end
 end

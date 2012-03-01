@@ -19,8 +19,10 @@ module Constantinople
   def self.load_from_directory(dir)
     env = environment
     result = Map.new
+    ignore_files = files_to_ignore(dir)
     ['.yml.default', '.yml', '.yml.override'].each do |ext|
       Dir.glob(File.join(dir,"*#{ext}")) do |path|
+        next if ignore_files.include?(File.basename(path))
         filename = File.basename(path,ext)
         sub = load_yaml_or_warn(path)
         if sub
@@ -71,6 +73,12 @@ module Constantinople
       dir = File.dirname(trace)
       yield dir unless results.include?(dir) || !File.directory?(dir)
       results << dir
+    end
+  end
+
+  def self.files_to_ignore(dir)
+    File.open(File.join(dir,".conignore")) do |f|
+      f.readlines
     end
   end
 
