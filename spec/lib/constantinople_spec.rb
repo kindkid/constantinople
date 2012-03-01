@@ -20,14 +20,12 @@ describe Constantinople do
   end
 
   describe "ignore files" do
-    it "should read .ymlignore if it exists" do
+    it "should read .constantinopleignore if it exists" do
       Constantinople.send(:files_to_ignore, "spec/config").should == ['error.yml']
     end
 
     it "should not bother reading error.yml" do
-      lambda {
-        CONFIG.error
-      }.should raise_exception
+      CONFIG.should_not include(:error)
     end
   end
 end

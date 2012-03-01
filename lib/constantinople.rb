@@ -8,18 +8,23 @@ module Constantinople
 
   def self.reload!
     result = Map.new
+    ignore_files = []
     caller_config_directories do |dir|
-      result.deeper_merge!(load_from_directory(dir))
+      ignore_files += files_to_ignore(dir)
+    end
+    ignore_files.uniq!
+    caller_config_directories do |dir|
+      result.deeper_merge!(load_from_directory(dir, :ignore => ignore_files))
     end
     result # I'm the map, I'm the map, I'm the map, I'm the map...
   end
 
   private
 
-  def self.load_from_directory(dir)
+  def self.load_from_directory(dir, args={})
     env = environment
     result = Map.new
-    ignore_files = files_to_ignore(dir)
+    ignore_files = args[:ignore]
     ['.yml.default', '.yml', '.yml.override'].each do |ext|
       Dir.glob(File.join(dir,"*#{ext}")) do |path|
         next if ignore_files.include?(File.basename(path))
@@ -77,9 +82,11 @@ module Constantinople
   end
 
   def self.files_to_ignore(dir)
-    File.open(File.join(dir,".conignore")) do |f|
+    File.open(File.join(dir,".constantinopleignore")) do |f|
       f.readlines
     end
+  rescue Exception => e
+    []
   end
 
 end

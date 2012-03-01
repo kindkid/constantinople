@@ -1,4 +1,4 @@
 <%
-error = ".ymlignore my butt."
+error = ".constantinopleignore my butt."
 %>
 error: <%= error %>
