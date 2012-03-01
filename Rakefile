@@ -1,4 +1,9 @@
-require 'bundler/gem_tasks'
+begin
+  require 'bundler/gem_tasks'
+rescue Exception => e
+  require 'rubygems'
+  require 'bundler/gem_tasks'
+end
 require 'rspec/core/rake_task'
 
 desc "Run all specs"
