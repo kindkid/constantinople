@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Constantinople : Load all your config YAML files" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Constantinople</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/kindkid/constantinople">Fork Me on GitHub</a>
+
+          <h1 id="project_title">Constantinople</h1>
+          <h2 id="project_tagline">Load all your config YAML files</h2>
+
+          <section id="downloads">
+            <a class="zip_download_link" href="https://github.com/kindkid/constantinople/zipball/master">Download this project as a .zip file</a>
+            <a class="tar_download_link" href="https://github.com/kindkid/constantinople/tarball/master">Download this project as a tar.gz file</a>
+          </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>Constantinople</h1>
+
+<h1>Usage</h1>
+
+<p>Place all your configuration parameters in YAML files within a config/
+directory under the top level of your project. For example, you might have a
+config/database.yml file.</p>
+
+<p>In an initializer at the top level of your project,
+or within your config/ directory, do this:</p>
+
+<pre><code>require 'constantinople'
+</code></pre>
+
+<p>You may then use CONSTANTINOPLE from anywhere in your app:</p>
+
+<pre><code>CONSTANTINOPLE.database.username
+</code></pre>
+
+<h1>Defaults and Overrides</h1>
+
+<p>You can create default and over-ride versions of config files. Constantinople
+will look for and load config files in the following order:</p>
+
+<pre><code>config/*.yml.default
+config/*.yml
+config/*.yml.override
+</code></pre>
+
+<p>The results are merged together. We recommended you gitignore config/*.yml.</p>
+
+<h1>Environments</h1>
+
+<p>If there is a non-empty ENV['RAILS_ENV'], ENV['RACK_ENV'] or ENV['APP_ENV'] the
+first such environment will be used as a key whose values will be merged into
+the level above. If none of those are defined, 'development' is used.
+So for example, if your database.yml file has</p>
+
+<pre><code>username: root
+password:
+production:
+  password: d87gfds09ds8a
+</code></pre>
+
+<p>Then in your development environment:</p>
+
+<pre><code>CONSTANTINOPLE.database.username # root
+CONSTANTINOPLE.database.password # nil
+</code></pre>
+
+<p>And in your production environment:</p>
+
+<pre><code>CONSTANTINOPLE.database.username # root
+CONSTANTINOPLE.database.password # d87gfds09ds8a
+</code></pre>
+
+<h1>Working on the Gem</h1>
+
+<p>Install rvm, including ruby 1.9.
+Clone the git repo, then...</p>
+
+<pre><code>cd constantinople
+gem install bundler
+bundle install
+rake coverage
+</code></pre>
+
+<h1>Forking</h1>
+
+<p>Yeah, fine. But please rename to Istanbul.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Constantinople maintained by <a href="https://github.com/kindkid">kindkid</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
